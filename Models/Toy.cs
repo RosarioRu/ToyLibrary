@@ -1,6 +1,6 @@
 namespace ToyLibrary.Models
 {
-  public class ToyLibrary
+  public class Toy
   {
     public int ToyId {get; set;}
 
