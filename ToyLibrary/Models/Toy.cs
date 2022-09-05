@@ -8,6 +8,8 @@ namespace ToyLibrary.Models
 
     public string Description {get; set;}
 
-    public int TypicalUserAge {get; set;}
+    public int UserAgeMinimum {get; set;}
+
+    public int UserAgeMaximum {get; set;}
   }
 }
