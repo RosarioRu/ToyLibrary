@@ -6,7 +6,7 @@ using ToyLibrary.Models;
 
 namespace ToyLibrary.Controllers
 {
-  [route("api/[controller]")]
+  [Route("api/[controller]")]
   [ApiController]
   public class ToysController: ControllerBase
   {
@@ -22,7 +22,7 @@ namespace ToyLibrary.Controllers
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Toy>>> Get()
     {
-      return await _db.Toys.ToListAsynch();
+      return await _db.Toys.ToListAsync();
     }
 
     //POST api/toys
