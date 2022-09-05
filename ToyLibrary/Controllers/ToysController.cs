@@ -47,7 +47,7 @@ namespace ToyLibrary.Controllers
       return toy;
     }
 
-    // PUT: api/toys/5
+    // PUT: api/toys/1
     [HttpPut("{id}")]
     public async Task<IActionResult> Put(int id, Toy toy)
     {
@@ -80,6 +80,22 @@ namespace ToyLibrary.Controllers
     private bool ToyExists(int id)
     {
       return _db.Toys.Any(e => e.ToyId == id);
+    }
+
+    // DELETE: api/Toys/1
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteToy(int id)
+    {
+      var toy = await _db.Toys.FindAsync(id);
+      if (toy == null)
+      {
+        return NotFound();
+      }
+
+      _db.Toys.Remove(toy);
+      await _db.SaveChangesAsync();
+
+      return NoContent();
     }
 
   }
