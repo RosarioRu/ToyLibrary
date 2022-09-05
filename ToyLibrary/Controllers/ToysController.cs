@@ -31,8 +31,19 @@ namespace ToyLibrary.Controllers
     {
       _db.Toys.Add(toy);
       await _db.SaveChangesAsync();
+      return CreatedAtAction(nameof(GetToy), new {id = toy.ToyId}, toy);
+    }
 
-      return CreatedAtAction("Post", new {id = toy.ToyId}, toy);
+    //GET: api/Toys/1
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Toy>> GetToy(int id)
+    {
+      var toy = await _db.Toys.FindAsync(id);
+      if (toy == null)
+      {
+        return NotFound();
+      }
+      return toy;
     }
 
   }
