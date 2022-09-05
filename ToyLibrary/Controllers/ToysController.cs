@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq; // needed for .Any() method
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -44,6 +45,41 @@ namespace ToyLibrary.Controllers
         return NotFound();
       }
       return toy;
+    }
+
+    // PUT: api/toys/5
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Put(int id, Toy toy)
+    {
+      if (id != toy.ToyId)
+      {
+        return BadRequest();
+      }
+
+      _db.Entry(toy).State = EntityState.Modified;
+
+      try
+      {
+        await _db.SaveChangesAsync();
+      }
+      catch (DbUpdateConcurrencyException)
+      {
+        if (!ToyExists(id))
+        {
+          return NotFound();
+        }
+        else
+        {
+          throw;
+        }
+      }
+
+      return NoContent();
+    }
+
+    private bool ToyExists(int id)
+    {
+      return _db.Toys.Any(e => e.ToyId == id);
     }
 
   }
