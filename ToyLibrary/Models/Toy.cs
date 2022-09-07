@@ -7,7 +7,7 @@ namespace ToyLibrary.Models
     public int ToyId {get; set;}
 
     [Required]
-    [StringLength(20)]
+    [StringLength(40)]
     public string Name {get; set;}
 
     [Required]
