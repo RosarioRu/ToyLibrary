@@ -21,9 +21,25 @@ namespace ToyLibrary.Controllers
 
     //GET api/toys
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Toy>>> Get()
+    public async Task<ActionResult<IEnumerable<Toy>>> Get(int userAgeMinimum, int userAgeMaximum, string name)
     {
-      return await _db.Toys.ToListAsync();
+      var query = _db.Toys.AsQueryable();
+      if (userAgeMinimum != 0)
+      {
+        query = query.Where(entry => entry.UserAgeMinimum >= userAgeMinimum);
+      }
+
+      if (userAgeMaximum != 0)
+      {
+        query = query.Where(entry => entry.UserAgeMaximum <= userAgeMaximum);
+      }
+
+      if (name != null)
+      {
+        query = query.Where(entry => entry.Name == name);
+      }
+
+      return await query.ToListAsync();
     }
 
     //POST api/toys
